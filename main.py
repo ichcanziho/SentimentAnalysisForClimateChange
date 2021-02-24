@@ -1,8 +1,8 @@
-from core import WORLD
+from core import run
 
 
 def main():
-    WORLD.hello()
+    run(path="ejemplo.csv")
 
 
 if __name__ == '__main__':
