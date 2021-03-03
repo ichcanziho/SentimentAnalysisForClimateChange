@@ -12,9 +12,10 @@ import pandas as pd
 from os import listdir
 from os.path import isfile, join
 
+
 def generate_news_csv():
     # Defining source path.
-    source_path = "./datasets/TelevisionNews/"
+    source_path = "./inputs/datasets/TelevisionNews/"
     # Generating file_list.
     file_list = [f for f in listdir(source_path) if isfile(join(source_path, f))]
     # Verifying that only CSV files are saved.
@@ -69,6 +70,7 @@ def generate_news_csv():
     print("Rows: ", rows)
     print("Columns: ", cols)
     # # Saving final CSV.
-    save_path = "./datasets/pretty_news_dataset.csv"
+    save_path = "./outputs/news/pretty_news_dataset.csv"
     final_df.to_csv(save_path, index=False)
     print("Done!")
+
