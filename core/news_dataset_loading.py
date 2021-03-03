@@ -35,16 +35,36 @@ def generate_news_csv():
     rows, cols = full_df.shape
     print("Rows: ", rows)
     print("Columns: ", cols)
-    # Removing unnecessary columns.
-    full_df = full_df.drop(['URL', 'IAShowID','IAPreviewThumb'], 1)
+    # Filtering by the required dates.
+    full_df['MatchDateTime'] = pd.to_datetime(full_df['MatchDateTime'])
+    start_date = '2015-03-27'
+    end_date = '2021-02-28'
+    mask = (full_df['MatchDateTime'] >= start_date) & (full_df['MatchDateTime'] <= end_date)
+    filtered_df = full_df.loc[mask]
+    print(filtered_df)
+    rows, cols = filtered_df.shape
+    print("Rows: ", rows)
+    print("Columns: ", cols)
+    # Filtering by keyword "climate change".
+    filtered_df['Snippet'].str.lower()
+    filtered_df = filtered_df[filtered_df['Snippet'].str.contains("climate change")]
+    print(filtered_df)
+    rows, cols = filtered_df.shape
+    print("Rows: ", rows)
+    print("Columns: ", cols)
+    # # Removing unnecessary columns.
+    final_df = filtered_df.drop(['URL', 'IAShowID','IAPreviewThumb'], 1)
     # Formatting the day, month, and year columns.
-    full_df = pd.concat([full_df.drop('MatchDateTime', axis = 1),
-                        (full_df.MatchDateTime.str.split("/| ").str[:3].apply(pd.Series).rename(columns={0:'month', 1:'day', 2:'year'}))],
+    final_df = pd.concat([final_df.drop('MatchDateTime', axis = 1),
+                        (final_df.MatchDateTime.dt.strftime('%Y-%m-%d').str.split("-| ").str[:3].apply(pd.Series).rename(columns={0:'year', 1:'month', 2:'day'}))],
                         axis = 1)
     print("Final dataframe:")
     #full_df.head()
-    print(full_df)
-    # Saving final CSV.
-    save_path = "./datasets/full_news_dataset.csv"
-    full_df.to_csv(save_path, index=False)
+    print(final_df)
+    rows, cols = final_df.shape
+    print("Rows: ", rows)
+    print("Columns: ", cols)
+    # # Saving final CSV.
+    save_path = "./datasets/pretty_news_dataset.csv"
+    final_df.to_csv(save_path, index=False)
     print("Done!")
