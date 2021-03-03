@@ -38,15 +38,18 @@ def generate_news_csv():
     # Filtering by the required dates.
     full_df['MatchDateTime'] = pd.to_datetime(full_df['MatchDateTime'])
     start_date = '2015-03-27'
-    end_date = '2021-02-28'
+    end_date = '2018-02-21'
     mask = (full_df['MatchDateTime'] >= start_date) & (full_df['MatchDateTime'] <= end_date)
     dates_df = full_df.loc[mask]
     print(dates_df)
     rows, cols = dates_df.shape
     print("Rows: ", rows)
     print("Columns: ", cols)
-    # Filtering by keyword "climate change".
     filtered_df = dates_df.copy()
+    # Removing BBC entries.
+    mask_show = (filtered_df['Station'] != "BBCNEWS")
+    filtered_df = filtered_df.loc[mask_show]
+    # Filtering by keyword "climate change".
     filtered_df['Snippet'] = filtered_df['Snippet'].str.lower()
     filtered_df = filtered_df[filtered_df['Snippet'].str.contains("climate change")]
     print(filtered_df)
