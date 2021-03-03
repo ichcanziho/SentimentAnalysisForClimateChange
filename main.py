@@ -1,8 +1,8 @@
-from core import WORLD
+from core import generate_news_csv
 
 
 def main():
-    WORLD.hello()
+    generate_news_csv()
 
 
 if __name__ == '__main__':
