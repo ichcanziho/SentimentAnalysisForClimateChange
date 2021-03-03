@@ -40,13 +40,14 @@ def generate_news_csv():
     start_date = '2015-03-27'
     end_date = '2021-02-28'
     mask = (full_df['MatchDateTime'] >= start_date) & (full_df['MatchDateTime'] <= end_date)
-    filtered_df = full_df.loc[mask]
-    print(filtered_df)
-    rows, cols = filtered_df.shape
+    dates_df = full_df.loc[mask]
+    print(dates_df)
+    rows, cols = dates_df.shape
     print("Rows: ", rows)
     print("Columns: ", cols)
     # Filtering by keyword "climate change".
-    filtered_df['Snippet'].str.lower()
+    filtered_df = dates_df.copy()
+    filtered_df['Snippet'] = filtered_df['Snippet'].str.lower()
     filtered_df = filtered_df[filtered_df['Snippet'].str.contains("climate change")]
     print(filtered_df)
     rows, cols = filtered_df.shape
