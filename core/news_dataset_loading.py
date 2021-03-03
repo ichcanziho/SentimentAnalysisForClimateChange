@@ -38,7 +38,7 @@ def generate_news_csv():
     print("Columns: ", cols)
     # Filtering by the required dates.
     full_df['MatchDateTime'] = pd.to_datetime(full_df['MatchDateTime'])
-    start_date = '2015-03-27'
+    start_date = '2015-04-27'
     end_date = '2018-02-21'
     mask = (full_df['MatchDateTime'] >= start_date) & (full_df['MatchDateTime'] <= end_date)
     dates_df = full_df.loc[mask]
