@@ -54,6 +54,9 @@ class CriticalWords:
 
     def extract_most_common_words(self, words, sentiment):
         word_freq = FreqDist(words)
+        print("for the sentiment", sentiment)
+        print("there are", len(word_freq.keys()), "different words")
+        print("that were used", sum(word_freq.values()), "times")
         df = pd.DataFrame(
             {f'{sentiment}_words': list(word_freq.keys()), f'{sentiment}_counts': list(word_freq.values())})
         df = df.nlargest(self.n_words, columns=f'{sentiment}_counts')
@@ -73,4 +76,4 @@ class CriticalWords:
             sentiment_frame = self.extract_words_by_sentiment(sentiment)
             frame_base = pd.concat([frame_base, sentiment_frame], axis=1)
         print(frame_base)
-        frame_base.to_csv(self.save_path)
+        frame_base.to_csv(self.save_path, index=False)
