@@ -86,8 +86,9 @@ def make_summarize():
 
 
 def main():
-    make_summarize()
+    #make_summarize()
     # extract_critical_words()
+    Results.plot_timelines("syntactic")
 
 
 if __name__ == '__main__':
@@ -96,17 +97,17 @@ if __name__ == '__main__':
     news blob:   neutral,     8585,   134978
                  positive,    8900,   153930
                  negative,    4649,   36808
-               
+
                  sentiment,   words,  used times
     news vader:  neutral,     5320,   47066
                  positive,    9252,   171306
                  negative,    7651,   107344
-                
+
                  sentiment,   words,  used times
     tweet blob:  neutral,     19988,   171734
                  positive,    11735,   78884
                  negative,    7847 ,   44893
-                
+
                  sentiment,   words,  used times
     tweet vader: neutral,     12048,   74748
                  positive,    14834,   105733
