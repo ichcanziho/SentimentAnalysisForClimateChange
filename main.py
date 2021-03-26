@@ -26,28 +26,28 @@ def extract_critical_words():
                              text_column="Snippet",
                              class_column="blob category",
                              method_name="textBlob",
-                             n_words=22)
+                             n_words=1000)
     critical.extract_critical_words()
     critical = CriticalWords(input_data="outputs/news/pretty_news_dataset_syntactic_sentiment.csv",
                              output_folder="outputs/analysis",
                              text_column="Snippet",
                              class_column="vader category",
                              method_name="vader",
-                             n_words=22)
+                             n_words=1000)
     critical.extract_critical_words()
     critical = CriticalWords(input_data="outputs/twitter_raw/tweets_hydrate_syntactic_sentiment.csv",
                              output_folder="outputs/analysis",
                              text_column="tweet",
                              class_column="blob category",
                              method_name="textBlob",
-                             n_words=22)
+                             n_words=100)
     critical.extract_critical_words()
     critical = CriticalWords(input_data="outputs/twitter_raw/tweets_hydrate_syntactic_sentiment.csv",
                              output_folder="outputs/analysis",
                              text_column="tweet",
                              class_column="vader category",
                              method_name="vader",
-                             n_words=22)
+                             n_words=100)
     critical.extract_critical_words()
 
 
@@ -60,29 +60,32 @@ def make_summarize():
     tweet_blob_max_freq = {'neu': 171734, 'pos': 78884, 'neg': 44893}
     tweet_vader_max_freq = {'neu': 74748, 'pos': 105733, 'neg': 115030}
 
-    plot.make_freq(x_axes_file="outputs/analysis/tweets_textBlob_words.csv",
-                   y_axes_file="outputs/analysis/pretty_textBlob_words.csv",
-                   x_max_freq=tweet_blob_max_freq,
-                   y_max_freq=news_blob_max_freq,
-                   sentiments={'pos': 'green', 'neu': 'blue', 'neg': 'red'},
-                   scale=1,
-                   single_axes=True,  # If false, it will not show the words that have only one axe
-                   output_dir="outputs/analysis/freq/blob_results.csv",
-                   interval=(2, -1))  # the number of words to use (-1) = until last
-    plot.plot_test(input_file="outputs/analysis/freq/blob_results.csv", save_dir="outputs/images",
-                   classifier='Text-Blob', marker='o', size=(10, 10))
+    # plot.make_freq(x_axes_file="outputs/analysis/tweets_textBlob_words.csv",
+    #                y_axes_file="outputs/analysis/pretty_textBlob_words.csv",
+    #                x_max_freq=tweet_blob_max_freq,
+    #                y_max_freq=news_blob_max_freq,
+    #                sentiments={'pos': 'green', 'neu': 'blue', 'neg': 'red'},
+    #                scale=10,
+    #                single_axes=True,  # If false, it will not show the words that have only one axe
+    #                output_dir="outputs/analysis/freq/blob_results.csv",
+    #                interval=(2, 12))  # the number of words to use (-1) = until last
 
-    plot.make_freq(x_axes_file="outputs/analysis/tweets_vader_words.csv",
-                   y_axes_file="outputs/analysis/pretty_vader_words.csv",
-                   x_max_freq=tweet_vader_max_freq,
-                   y_max_freq=news_vader_max_freq,
-                   sentiments={'pos': 'green', 'neu': 'blue', 'neg': 'red'},
-                   scale=1,
-                   single_axes=True,
-                   output_dir="outputs/analysis/freq/vader_results.csv",
-                   interval=(2, -1))
-    plot.plot_test(input_file="outputs/analysis/freq/vader_results.csv", save_dir="outputs/images",
-                   classifier='Vader', marker='*', size=(10, 10))
+    # plot.plot_test2(input_file="outputs/analysis/freq/blob_results.csv", save_dir="outputs/images",
+    #                 classifier='Text-Blob', marker='o', size=(10, 10))
+
+    # plot.make_freq(x_axes_file="outputs/analysis/tweets_vader_words.csv",
+    #                y_axes_file="outputs/analysis/pretty_vader_words.csv",
+    #                x_max_freq=tweet_vader_max_freq,
+    #                y_max_freq=news_vader_max_freq,
+    #                sentiments={'pos': 'green', 'neu': 'blue', 'neg': 'red'},
+    #                scale=10,
+    #                single_axes=True,
+    #                output_dir="outputs/analysis/freq/vader_results.csv",
+    #                interval=(2, 12))
+    plot.plot_test2(input_file="outputs/analysis/freq/vader_results.csv", save_dir="outputs/images",
+                    classifier='Vader', marker='*', size=(10, 10),
+                    ys_lims=(-0.0005, 0.0005, 0.0054, 0.0076, 0.0076, 0.0155),
+                    xs_lims=(-0.0005, 0.008, 0.0081, 0.04))
 
 
 def main():
