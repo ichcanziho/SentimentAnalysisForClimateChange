@@ -89,9 +89,9 @@ def make_summarize():
 
 
 def main():
-    #make_summarize()
+    make_summarize()
     # extract_critical_words()
-    Results.plot_timelines("syntactic")
+    # Results.plot_timelines("syntactic")
 
 
 if __name__ == '__main__':
