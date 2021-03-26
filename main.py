@@ -65,27 +65,29 @@ def make_summarize():
     #                x_max_freq=tweet_blob_max_freq,
     #                y_max_freq=news_blob_max_freq,
     #                sentiments={'pos': 'green', 'neu': 'blue', 'neg': 'red'},
-    #                scale=10,
+    #                scale=100,
     #                single_axes=True,  # If false, it will not show the words that have only one axe
     #                output_dir="outputs/analysis/freq/blob_results.csv",
     #                interval=(2, 12))  # the number of words to use (-1) = until last
-
-    # plot.plot_test2(input_file="outputs/analysis/freq/blob_results.csv", save_dir="outputs/images",
-    #                 classifier='Text-Blob', marker='o', size=(10, 10))
-
+    #
+    # # plot.plot_test2(input_file="outputs/analysis/freq/blob_results.csv", save_dir="outputs/images",
+    # #                 classifier='Text-Blob', marker='o', size=(10, 10))
+    #
     # plot.make_freq(x_axes_file="outputs/analysis/tweets_vader_words.csv",
     #                y_axes_file="outputs/analysis/pretty_vader_words.csv",
     #                x_max_freq=tweet_vader_max_freq,
     #                y_max_freq=news_vader_max_freq,
     #                sentiments={'pos': 'green', 'neu': 'blue', 'neg': 'red'},
-    #                scale=10,
+    #                scale=100,
     #                single_axes=True,
     #                output_dir="outputs/analysis/freq/vader_results.csv",
     #                interval=(2, 12))
-    plot.plot_test2(input_file="outputs/analysis/freq/vader_results.csv", save_dir="outputs/images",
-                    classifier='Vader', marker='*', size=(10, 10),
-                    ys_lims=(-0.0005, 0.0005, 0.0054, 0.0076, 0.0076, 0.0155),
-                    xs_lims=(-0.0005, 0.008, 0.0081, 0.04))
+    # plot.plot_test2(input_file="outputs/analysis/freq/vader_results.csv", save_dir="outputs/images",
+    #                 classifier='Vader', marker='*', size=(15, 10),
+    #                 ys_lims=(-0.05, 0.05, 0.54, 0.76, 0.76, 1.55),
+    #                 xs_lims=(-0.05, 0.8, 0.81, 4.0))
+    plot.plot_test2(input_file="outputs/analysis/freq/blob_results.csv", save_dir="outputs/images",
+                    classifier='TextBlob', marker='*', size=(15, 10))
 
 
 def main():

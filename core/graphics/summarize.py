@@ -231,8 +231,8 @@ class Results(UtilMethods):
             sentiment = count.split("_")[0]
             x_freq = x_max_freq[sentiment]
             y_freq = y_max_freq[sentiment]
-            x_ax[count] = x_ax[count] / x_freq
-            y_ax[count] = y_ax[count] / y_freq
+            x_ax[count] = (x_ax[count] / x_freq) * scale
+            y_ax[count] = (y_ax[count] / y_freq) * scale
 
         matrix = []
         for word_col, count in zip(words, counts):
@@ -263,8 +263,8 @@ class Results(UtilMethods):
 
     @UtilMethods.print_execution_time
     def plot_test2(self, input_file, save_dir, classifier, marker, size=(10, 10),
-                   ys_lims=(-0.0005, 0.0005, 0.0050, 0.0068, 0.0068, 0.014),
-                   xs_lims=(-0.0005, 0.0065, 0.0066, 0.024), font_size=6):
+                   ys_lims=(-0.05, 0.05, 0.50, 0.68, 0.68, 1.4),
+                   xs_lims=(-0.05, 0.65, 0.66, 2.4), font_size=6):
 
         def putLegends(axis, classifier, marker):
             feelings = {"positive": 'green', "neutral": "blue", "negative": "red"}
@@ -281,10 +281,13 @@ class Results(UtilMethods):
                     chido = ax.text(x, y, word, fontsize=font_size)
                     texts.append(chido)
 
-            # if vertical:
-            #     adjust_text(texts, precision=0.000001, ha='center', va='bottom', ax=ax,
-            #                 force_points=0.02,
-            #                 arrowprops=dict(arrowstyle="-", color='k', lw=0.5))
+            if vertical:
+                adjust_text(texts, precision=0.0001, ax=ax, lim = 1500, force_text=(10,10),
+                            force_points=(15,15), only_move={'points':'xy','text':'y','objects':'xy'},
+                            arrowprops=dict(arrowstyle='->', color='red'))
+            else:
+                adjust_text(texts, precision=0.0001, ax=ax, lim = 1500, force_points=(5,5), force_text=(3,3),
+                            arrowprops=dict(arrowstyle='->', color='red'))
 
             ax.set_ylim(y_limit[0], y_limit[1])
             ax.set_xlim(x_limit[0], x_limit[1])
@@ -363,9 +366,10 @@ class Results(UtilMethods):
         fig.add_subplot(111, frameon=False)
         plt.tick_params(labelcolor='none', which='both', top=False, bottom=False, left=False, right=False)
         plt.xlabel("freq on tweets")
+        save_path = f'{save_dir}/{classifier}_summarize_pretty.svg'
+        plt.savefig(save_path, bbox_inches='tight')
         plt.show()
-        # save_path = f'{save_dir}/{classifier}_summarize.svg'
-        # plt.savefig(save_path, bbox_inches='tight')
+
 
     @UtilMethods.print_execution_time
     def plot_test_base(self, input_file, save_dir, classifier, marker, size=(10, 10)):
