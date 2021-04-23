@@ -11,8 +11,9 @@ from nltk.stem import WordNetLemmatizer
 from nltk import FreqDist
 from core.utils import UtilMethods
 import matplotlib.pyplot as plt
-from adjustText import adjust_text
 import numpy as np
+from adjustText import adjust_text
+
 
 
 class Sentiment:
@@ -386,6 +387,46 @@ class SummarySentiments(UtilMethods):
         plt.savefig(save_path, bbox_inches='tight', dpi=400)
         plt.show()
 
+    @UtilMethods.print_execution_time
+    def plot_mini(self, textBlob, vader, save_dir, size=(10, 10), f_size=12):
+        import seaborn as sns
+        sns.set()
+
+        def putLegends(axis, location=1):
+            feelings = {"positive": 'green', "neutral": "blue", "negative": "red"}
+            for name, Color in feelings.items():
+                axis.plot(np.NaN, np.NaN, c=Color, label=name, marker='o', linestyle='None')
+            axis.legend(loc=location, title="Feelings")
+
+        def draw_axes(drawing_ax, input_file, f_size):
+
+            frame = pd.read_csv(input_file)
+            print(frame)
+            texts = []
+            for word, x, y, color in frame.values:
+                drawing_ax.scatter(x, y, s=50, c=color, alpha=0.5, marker="*")
+                t = drawing_ax.text(x, y, word, fontsize=f_size)
+                texts.append(t)
+
+            adjust_text(texts, precision=0.0001, ax=drawing_ax, lim=1500, force_points=(5, 5), force_text=(3, 3))
+
+        fig, (ax_00, ax_01) = plt.subplots(1, 2, sharey=True, figsize=size)
+        fig.suptitle("Most used words", fontsize=20)
+
+        draw_axes(ax_00, textBlob, f_size)
+        draw_axes(ax_01, vader, f_size)
+        putLegends(ax_00, location=1)
+        putLegends(ax_01, location=2)
+
+        ax_00.set_title("TexBlob Analyzer")
+        ax_01.set_title("VADER Analyzer")
+        ax_00.set_ylabel("Frequency on news", fontsize=16)
+        ax_01.tick_params(left=False)
+        ax_00.set_xlabel("Frequency on tweets", fontsize=16)
+        ax_01.set_xlabel("Frequency on tweets", fontsize=16)
+        plt.savefig(save_dir, bbox_inches='tight', dpi=400)
+        plt.show()
+
 
 def runner():
     analyzer = Sentiment("../outputs/twitter_raw/tweets_hydrate_syntactic.csv",
@@ -429,7 +470,6 @@ def runner():
                              method_name="vader",
                              n_words=1000)
     critical.extract_critical_words()
-
     ss = SummarySentiments()
     color_map = {'pos': 'green', 'neu': 'blue', 'neg': 'red'}
     ss.make_freq(x_axes_file="../outputs/sentiment_analysis/words/tweets/critical words/tweets_vader_words.csv",
@@ -437,20 +477,17 @@ def runner():
                  x_max_freq="../outputs/sentiment_analysis/words/tweets/counts/tweets_vader_counts.csv",
                  y_max_freq="../outputs/sentiment_analysis/words/news/counts/news_vader_counts.csv",
                  sentiments=color_map,
-                 output_dir="../outputs/sentiment_analysis/words/freq distribution/vader_results.csv",
-                 start=2,
-                 window=10)
-
+                 output_dir="../outputs/sentiment_analysis/words/freq distribution/vader_results2.csv",
+                 start=0,
+                 window=2)
     ss.make_freq(x_axes_file="../outputs/sentiment_analysis/words/tweets/critical words/tweets_textBlob_words.csv",
                  y_axes_file="../outputs/sentiment_analysis/words/news/critical words/news_textBlob_words.csv",
                  x_max_freq="../outputs/sentiment_analysis/words/tweets/counts/tweets_textBlob_counts.csv",
                  y_max_freq="../outputs/sentiment_analysis/words/news/counts/news_textBlob_counts.csv",
                  sentiments=color_map,
-                 output_dir="../outputs/sentiment_analysis/words/freq distribution/textBlob_results.csv",
-                 start=2,
-                 window=10)
-
-    ss = SummarySentiments()
+                 output_dir="../outputs/sentiment_analysis/words/freq distribution/textBlob_results2.csv",
+                 start=0,
+                 window=2)
     ss.plot_sentiment_summary(input_file="../outputs/sentiment_analysis/words/freq distribution/textBlob_results.csv",
                               save_dir="../outputs/sentiment_analysis/images",
                               classifier='TextBlob',
@@ -469,6 +506,10 @@ def runner():
                               ys_lims=(-0.05, 0.4, 0.4, 0.8, 0.8, 1.6),
                               xs_lims=(-0.05, 1, 1.3, 3.5)
                               )
+    ss.plot_mini(textBlob="../outputs/sentiment_analysis/words/freq distribution/textBlob_results2.csv",
+                 vader="../outputs/sentiment_analysis/words/freq distribution/vader_results2.csv",
+                 save_dir="../outputs/sentiment_analysis/images/final.svg",
+                 size=(10, 5))
 
 
 if __name__ == '__main__':
