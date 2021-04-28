@@ -68,6 +68,8 @@ class Results(UtilMethods):
             plt.title('News sentiment counts per year and month for the VADER method', fontsize=20)
             plt.legend()
             plt.xticks(rotation=90)
+            plt.tick_params(labelsize=14)
+            #plt.yticks(fontize=14)
             plt.savefig("./outputs/images/sent_news_vader.svg", bbox_inches='tight')
             plt.show()
 
@@ -81,6 +83,7 @@ class Results(UtilMethods):
             plt.title('News sentiment counts per year and month for the TextBlob method', fontsize=20)
             plt.legend()
             plt.xticks(rotation=90)
+            plt.tick_params(labelsize=14)
             plt.savefig("./outputs/images/sent_news_blob.svg", bbox_inches='tight')
             plt.show()
 
@@ -94,6 +97,7 @@ class Results(UtilMethods):
             plt.title('Tweets sentiment counts per year and month for the VADER method', fontsize=20)
             plt.legend()
             plt.xticks(rotation=90)
+            plt.tick_params(labelsize=14)
             plt.savefig("./outputs/images/sent_tweets_vader.svg", bbox_inches='tight')
             plt.show()
 
@@ -107,6 +111,7 @@ class Results(UtilMethods):
             plt.title('Tweets sentiment counts per year and month for the TextBlob method', fontsize=20)
             plt.legend()
             plt.xticks(rotation=90)
+            plt.tick_params(labelsize=14)
             plt.savefig("./outputs/images/sent_tweets_blob.svg", bbox_inches='tight')
             plt.show()
         elif(mode == "syntactic"):
@@ -157,6 +162,7 @@ class Results(UtilMethods):
             plt.title('Syntactic characteristics of news per year and month', fontsize=20)
             plt.legend()
             plt.xticks(rotation=90)
+            plt.tick_params(labelsize=14)
             plt.savefig("./outputs/images/synt_news.svg", bbox_inches='tight')
             plt.show()
 
@@ -168,6 +174,7 @@ class Results(UtilMethods):
             plt.title('Average number of words in news per year and month', fontsize=20)
             plt.legend()
             plt.xticks(rotation=90)
+            plt.tick_params(labelsize=14)
             plt.savefig("./outputs/images/synt_news_size.svg", bbox_inches='tight')
             plt.show()
 
@@ -182,6 +189,7 @@ class Results(UtilMethods):
             plt.title('Syntactic characteristics of tweets per year and month', fontsize=20)
             plt.legend()
             plt.xticks(rotation=90)
+            plt.tick_params(labelsize=14)
             plt.savefig("./outputs/images/synt_tweets.svg", bbox_inches='tight')
             plt.show()
 
@@ -193,6 +201,7 @@ class Results(UtilMethods):
             plt.title('Average number of words in tweets per year and month', fontsize=20)
             plt.legend()
             plt.xticks(rotation=90)
+            plt.tick_params(labelsize=14)
             plt.savefig("./outputs/images/synt_tweets_size.svg", bbox_inches='tight')
             plt.show()
         else:
