@@ -98,7 +98,7 @@ class CriticalWords:
                 stem_word = lemming.lemmatize(word, pos="v")
                 sentence_clean.append(unidecode.unidecode(stem_word))
 
-        bad_words = ['amp', 'dont', 'doesnt', 'us']
+        bad_words = ['amp', 'dont', 'doesnt', 'us', 'shes']
         sentence_clean = [word for word in sentence_clean if word not in bad_words]
         return sentence_clean
 
@@ -389,8 +389,8 @@ class SummarySentiments(UtilMethods):
 
     @UtilMethods.print_execution_time
     def plot_mini(self, textBlob, vader, save_dir, size=(10, 10), f_size=12):
-        import seaborn as sns
-        sns.set()
+        # import seaborn as sns
+        # sns.set()
 
         def putLegends(axis, location=1):
             feelings = {"positive": 'green', "neutral": "blue", "negative": "red"}
@@ -422,19 +422,19 @@ class SummarySentiments(UtilMethods):
         ax_01.set_title("VADER Analyzer")
         ax_00.set_ylabel("Frequency on news", fontsize=16)
         ax_01.tick_params(left=False)
-        ax_00.set_xlabel("Frequency on tweets", fontsize=16)
-        ax_01.set_xlabel("Frequency on tweets", fontsize=16)
+        ax_00.set_xlabel("Frequency on tweets \n (a) TextBlob", fontsize=16)
+        ax_01.set_xlabel("Frequency on tweets \n (b) VADER", fontsize=16)
         plt.savefig(save_dir, bbox_inches='tight', dpi=400)
         plt.show()
 
 
 def runner():
-    analyzer = Sentiment("../outputs/twitter_raw/tweets_hydrate_syntactic.csv",
-                         "../outputs/sentiment_analysis/data")
-    analyzer.extract_sentiment_features(text_col="tweet")
-    analyzer = Sentiment("../outputs/news/pretty_news_dataset_syntactic.csv",
-                         "../outputs/sentiment_analysis/data")
-    analyzer.extract_sentiment_features(text_col="Snippet")
+    # analyzer = Sentiment("../outputs/twitter_raw/tweets_hydrate_syntactic.csv",
+    #                      "../outputs/sentiment_analysis/data")
+    # analyzer.extract_sentiment_features(text_col="tweet")
+    # analyzer = Sentiment("../outputs/news/pretty_news_dataset_syntactic.csv",
+    #                      "../outputs/sentiment_analysis/data")
+    # analyzer.extract_sentiment_features(text_col="Snippet")
 
     critical = CriticalWords(input_data=f"../outputs/sentiment_analysis/data/"
                                         f"pretty_news_dataset_syntactic_sentiment.csv",
@@ -506,10 +506,10 @@ def runner():
                               ys_lims=(-0.05, 0.4, 0.4, 0.8, 0.8, 1.6),
                               xs_lims=(-0.05, 1, 1.3, 3.5)
                               )
-    ss.plot_mini(textBlob="../outputs/sentiment_analysis/words/freq distribution/textBlob_results2.csv",
-                 vader="../outputs/sentiment_analysis/words/freq distribution/vader_results2.csv",
-                 save_dir="../outputs/sentiment_analysis/images/final.svg",
-                 size=(10, 5))
+    # ss.plot_mini(textBlob="../outputs/sentiment_analysis/words/freq distribution/textBlob_results2.csv",
+    #              vader="../outputs/sentiment_analysis/words/freq distribution/vader_results2.csv",
+    #              save_dir="../outputs/sentiment_analysis/images/final.svg",
+    #              size=(10, 5))
 
 
 if __name__ == '__main__':
