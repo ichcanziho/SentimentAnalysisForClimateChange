@@ -1,3 +1,11 @@
+###############################################################################
+# A simple class that provides util methods such as create folders, or get    #
+# the time execution of a function                                            #
+#                                                                             #
+# @author Gabriel Ichcanziho                                                  #
+# Last updated: 05-05-2021.                                                   #
+###############################################################################
+
 from pathlib import Path
 import time
 

@@ -1,3 +1,14 @@
+###############################################################################
+# Class that extract the sentiment of a given text, it uses two sentiment     #
+# analyzers                                                                   #
+# TextBlob: https://github.com/sloria/TextBlob                                #
+# VADER: https://github.com/cjhutto/vaderSentiment                            #
+#                                                                             #
+# @author Gabriel Ichcanziho                                                  #
+# Last updated: 05-05-2021.                                                   #
+###############################################################################
+
+
 import pandas as pd
 from tqdm import tqdm
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -59,6 +70,15 @@ class Sentiment:
         frame = pd.concat([frame, syntactic_frame], axis=1)
         frame.to_csv(self.save_path, index=False)
 
+###############################################################################
+# Class that extract the most used words by sentiment in a given dataset      #
+# the dataset must be tagged with a sentiment before using this class         #
+# The available sentiments are: ["pos", "neg", neu"] it returns a CSV         #
+# with the words most used and their frequency by each sentiment              #
+#                                                                             #
+# @author Gabriel Ichcanziho                                                  #
+# Last updated: 05-05-2021.                                                   #
+###############################################################################
 
 class CriticalWords:
 

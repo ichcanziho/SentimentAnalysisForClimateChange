@@ -1,3 +1,13 @@
+###############################################################################
+# Class that extract the syntactic features of a text using SPACY library.    #
+# see https://github.com/explosion/spaCy for more details of SPACY            #
+# Returns a CSV file with the times of a Part Of Speech (POS) tags appears:   #
+# ['NOUN', 'ADJ', 'VERB', 'PROPN', 'SENT', 'SIZE']                            #
+#                                                                             #
+# @author Gabriel Ichcanziho                                                  #
+# Last updated: 05-05-2021.                                                   #
+###############################################################################
+
 import spacy
 import pandas as pd
 from tqdm import tqdm

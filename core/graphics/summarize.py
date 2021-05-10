@@ -6,6 +6,12 @@ from core.utils import UtilMethods
 import numpy as np
 from adjustText import adjust_text
 
+###############################################################################
+# Class that makes a plot that summarize all the syntactic analysis results   #
+#                                                                             #
+# @author Jorge Ciprián                                                  #
+# Last updated: 05-05-2021.                                                   #
+###############################################################################
 
 class SummarySyntactic(UtilMethods):
 
@@ -209,6 +215,13 @@ class SummarySyntactic(UtilMethods):
         else:
             print("Invalid argument!")
 
+
+###############################################################################
+# Class that makes a plot that summarize all the sentiments analysis results  #
+#                                                                             #
+# @author Gabriel Ichcanziho                                                  #
+# Last updated: 05-05-2021.                                                   #
+###############################################################################
 
 class SummarySentiments(UtilMethods):
     @UtilMethods.print_execution_time

@@ -1,3 +1,12 @@
+###############################################################################
+# Class that recover the date of a tweet base on their tweet id, it uses      #
+# TWARC library to hydratate the tweets ids.                                  #
+# see https://github.com/DocNow/twarc for more details on how to use TWARC    #
+#                                                                             #
+# @author Gabriel Ichcanziho                                                  #
+# Last updated: 05-05-2021.                                                   #
+###############################################################################
+
 from core import UtilMethods
 import pandas as pd
 from twarc import Twarc
