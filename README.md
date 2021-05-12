@@ -35,7 +35,15 @@ We provide the raw datasets in the *inputs* directory and the pre-processed data
 
 We provide 5 options: dataset cleaning, sentiment analysis, syntactic analysis, plotting the results' timelines, and all operations. You can select the operation you with to carry on the *config.ini* file, changing the following line:
 
-```sh
+```ini
+; Mode options: CLEAN, SENT, SYNT, PLOTS, ALL.
 [MODE]
 mode = SENT ; change this line.
+```
+
+Once you have set the option you with to carry out, you simply need to run the following command:
+
+
+```ini
+$ python main.py
 ```
