@@ -20,11 +20,13 @@ class SummarySyntactic(UtilMethods):
 
     # Method for plotting the timelines for sentiment and syntactic analysis.
     @staticmethod
-    def plot_timelines(mode):
+    def plot_timelines(mode, tweets_path, news_path, save_path):
         # First, we load the datasets for news and tweets.
         print("Loading datasets...")
-        tweets_df = pd.read_csv("outputs/clean datasets/Twitter/Twitter_syntactic_sentiment.csv")
-        news_df = pd.read_csv("outputs/clean datasets/News/News_syntactic_sentiment.csv")
+        # "outputs/clean datasets/Twitter/Twitter_syntactic_sentiment.csv"
+        tweets_df = pd.read_csv(tweets_path)
+        # "outputs/clean datasets/News/News_syntactic_sentiment.csv"
+        news_df = pd.read_csv(news_path)
         print("... done.")
         # Pre-processing the data according to the mode selected.
         if(mode == "sentiment"):
@@ -78,7 +80,8 @@ class SummarySyntactic(UtilMethods):
             plt.xticks(rotation=90)
             plt.tick_params(labelsize=14)
             #plt.yticks(fontize=14)
-            plt.savefig("outputs/Syntactic Analysis/images/sent_news_vader.svg", bbox_inches='tight')
+            plot_path = save_path + "sent_news_vader.svg"
+            plt.savefig(plot_path, bbox_inches='tight')
             plt.show()
 
             # For news and TextBlob.
@@ -92,7 +95,8 @@ class SummarySyntactic(UtilMethods):
             plt.legend()
             plt.xticks(rotation=90)
             plt.tick_params(labelsize=14)
-            plt.savefig("outputs/Syntactic Analysis/images/sent_news_blob.svg", bbox_inches='tight')
+            plot_path = save_path + "sent_news_blob.svg"
+            plt.savefig(plot_path, bbox_inches='tight')
             plt.show()
 
             # For tweets and VADER.
@@ -106,7 +110,8 @@ class SummarySyntactic(UtilMethods):
             plt.legend()
             plt.xticks(rotation=90)
             plt.tick_params(labelsize=14)
-            plt.savefig("outputs/Syntactic Analysis/images/sent_tweets_vader.svg", bbox_inches='tight')
+            plot_path = save_path + "sent_tweets_vader.svg"
+            plt.savefig(plot_path, bbox_inches='tight')
             plt.show()
 
             # For tweets and TextBlob.
@@ -120,7 +125,8 @@ class SummarySyntactic(UtilMethods):
             plt.legend()
             plt.xticks(rotation=90)
             plt.tick_params(labelsize=14)
-            plt.savefig("outputs/Syntactic Analysis/images/sent_tweets_blob.svg", bbox_inches='tight')
+            plot_path = save_path + "sent_tweets_blob.svg"
+            plt.savefig(plot_path, bbox_inches='tight')
             plt.show()
         elif(mode == "syntactic"):
             print("Selected: syntactic")
@@ -171,7 +177,8 @@ class SummarySyntactic(UtilMethods):
             plt.legend()
             plt.xticks(rotation=90)
             plt.tick_params(labelsize=14)
-            plt.savefig("outputs/Syntactic Analysis/images/synt_news.svg", bbox_inches='tight')
+            plot_path = save_path + "synt_news.svg"
+            plt.savefig(plot_path, bbox_inches='tight')
             plt.show()
 
             # For news and average size.
@@ -183,7 +190,8 @@ class SummarySyntactic(UtilMethods):
             plt.legend()
             plt.xticks(rotation=90)
             plt.tick_params(labelsize=14)
-            plt.savefig("outputs/Syntactic Analysis/images/synt_news_size.svg", bbox_inches='tight')
+            plot_path = save_path + "synt_news_size.svg"
+            plt.savefig(plot_path, bbox_inches='tight')
             plt.show()
 
             # For tweets and main elements.
@@ -198,7 +206,8 @@ class SummarySyntactic(UtilMethods):
             plt.legend()
             plt.xticks(rotation=90)
             plt.tick_params(labelsize=14)
-            plt.savefig("outputs/Syntactic Analysis/images/synt_tweets.svg", bbox_inches='tight')
+            plot_path = save_path + "synt_tweets.svg"
+            plt.savefig(plot_path, bbox_inches='tight')
             plt.show()
 
             # For tweets and average size.
@@ -210,7 +219,8 @@ class SummarySyntactic(UtilMethods):
             plt.legend()
             plt.xticks(rotation=90)
             plt.tick_params(labelsize=14)
-            plt.savefig("outputs/Syntactic Analysis/images/synt_tweets_size.svg", bbox_inches='tight')
+            plot_path = save_path + "synt_tweets_size.svg"
+            plt.savefig(plot_path, bbox_inches='tight')
             plt.show()
         else:
             print("Invalid argument!")

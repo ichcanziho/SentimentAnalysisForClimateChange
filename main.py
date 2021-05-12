@@ -1,3 +1,17 @@
+###############################################################################
+# Main file of the repository. Reads the config.ini file and performs the     #
+# requested action. Available options:                                        #
+# CLEAN: Dataset cleaning.                                                    #
+# SYNT: Syntactic analysis.                                                   #
+# SENT: Sentiment analysis.                                                   #
+# PLOTS: Plot the sentiment and syntactic analysis resulting timelines.       #
+#                                                                             #
+# @author Gabriel Pérez and Jorge Ciprián                                     #
+# Last updated: 12-05-2021.                                                   #
+###############################################################################
+
+# Imports.
+import configparser
 from core import TwitterCleaner
 from core import NewsCleaner
 from core import Syntactic
@@ -141,27 +155,47 @@ def sentiments_graphs():
 
 
 def syntactic_graphs():
-    SummarySyntactic.plot_timelines("syntactic")
-    SummarySyntactic.plot_timelines("sentiment")
+    SummarySyntactic.plot_timelines("syntactic",
+                                    "outputs/clean datasets/Twitter/Twitter_syntactic_sentiment.csv",
+                                    "outputs/clean datasets/News/News_syntactic_sentiment.csv",
+                                    "outputs/Syntactic Analysis/images/")
+    SummarySyntactic.plot_timelines("sentiment",
+                                    "outputs/clean datasets/Twitter/Twitter_syntactic_sentiment.csv",
+                                    "outputs/clean datasets/News/News_syntactic_sentiment.csv",
+                                    "outputs/Syntactic Analysis/images/")
 
 
 def main():
 
-    # Cleaning the datasets
-    news_clean()
-    twitter_clean()
+    # Reading configuration file.
+    config = configparser.ConfigParser()
+    config.read('config.ini')
+    # Reading operation mode.
+    mode = config['MODE'].get('mode')
+    print("Selected mode: ", mode)
 
-    # Making syntactic analysis
-    news_syntactic_analysis()
-    twitter_syntactic_analysis()
-
-    # Making sentiment analysis
-    news_sentiment_analysis()
-    twitter_sentiment_analysis()
-
-    # Plotting the graphs
-    sentiments_graphs()
-    syntactic_graphs()
+    if(mode == "CLEAN"):
+        #print("clean!")
+        # Cleaning the datasets
+        news_clean()
+        twitter_clean()
+    elif(mode == "SYNT"):
+        #print("synt!")
+        # Making syntactic analysis
+        news_syntactic_analysis()
+        twitter_syntactic_analysis()
+    elif(mode == "SENT"):
+        #print("sent!")
+        # Making sentiment analysis
+        news_sentiment_analysis()
+        twitter_sentiment_analysis()
+    elif(mode == "PLOTS"):
+        #print("plots!")
+        # Plotting the graphs
+        sentiments_graphs()
+        syntactic_graphs()
+    else:
+        print("Invalid mode!")
 
 
 if __name__ == '__main__':
