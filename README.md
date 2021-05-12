@@ -28,3 +28,14 @@ We analyze the following publicly available datasets:
 
 ### Data pre-processing
 We filter the entries by the subject of *climate change* and adjust the news dataset so that it contains entries for the same period of the tweets one, also removing the entries for the BBC news chain, as these entries start in the year 2017. After performing the said filters, we obtain 16,124 news entries and 28,116 tweet entries.
+
+We provide the raw datasets in the *inputs* directory and the pre-processed datasets in the *outputs* folder. The datasets containing the results for the syntactic and sentiment analysis are the *outputs/clean datasets/News_syntactic_sentiment.csv* and *outputs/clean datasets/Twitter_syntactic_sentiment.csv* files.
+
+## Running the program
+
+We provide 5 options: dataset cleaning, sentiment analysis, syntactic analysis, plotting the results' timelines, and all operations. You can select the operation you with to carry on the *config.ini* file, changing the following line:
+
+```sh
+[MODE]
+mode = SENT ; change this line.
+```
