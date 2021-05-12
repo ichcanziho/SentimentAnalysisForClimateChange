@@ -41,7 +41,7 @@ We provide 5 options: dataset cleaning, sentiment analysis, syntactic analysis, 
 mode = SENT ; change this line.
 ```
 
-Once you have set the option you with to carry out, you simply need to run the following command:
+Once you have set the option you wish to carry out, you simply need to run the following command:
 
 
 ```ini
