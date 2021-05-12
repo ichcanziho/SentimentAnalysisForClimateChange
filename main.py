@@ -194,6 +194,16 @@ def main():
         # Plotting the graphs
         sentiments_graphs()
         syntactic_graphs()
+    elif(mode == "ALL"):
+        # All options in order.
+        news_clean()
+        twitter_clean()
+        news_syntactic_analysis()
+        twitter_syntactic_analysis()
+        news_sentiment_analysis()
+        twitter_sentiment_analysis()
+        sentiments_graphs()
+        syntactic_graphs()
     else:
         print("Invalid mode!")
 
