@@ -212,7 +212,13 @@ def corr_caus_analysis():
         print("Neutral:")
         neu_granger = analyzer.grangers_causation_matrix(neu_df, variables = neu_df.columns,
                                                       maxlag=neu_best_lag)
-
+        # Getting the n-lag cross correlation matrices. Default lags = 6.
+        # Positive.
+        analyzer.n_lag_corr(pos_df, filename="pos_corr.svg")
+        # Negative.
+        analyzer.n_lag_corr(neg_df, filename="neg_corr.svg")
+        # Neutral.
+        analyzer.n_lag_corr(neu_df, filename="neu_corr.svg")
 
 def main():
 

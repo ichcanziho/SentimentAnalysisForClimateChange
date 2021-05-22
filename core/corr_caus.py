@@ -205,3 +205,42 @@ class CorrCausAnalyzer():
         print(df)
         print("-------------------------------------------------")
         return df
+
+    # Method to generate the N-lagged dataframe for cross-correlation.
+    def df_derived_by_shift(self, df, lag=0, NON_DER=[]):
+        df = df.copy()
+        if not lag:
+            return df
+        cols ={}
+        for i in range(1,lag+1):
+            for x in list(df.columns):
+                if x not in NON_DER:
+                    if not x in cols:
+                        cols[x] = ['{}_{}'.format(x, i)]
+                    else:
+                        cols[x].append('{}_{}'.format(x, i))
+        for k,v in cols.items():
+            columns = v
+            dfn = pd.DataFrame(data=None, columns=columns, index=df.index)
+            i = 1
+            for c in columns:
+                dfn[c] = df[k].shift(periods=i)
+                i+=1
+            df = pd.concat([df, dfn], axis=1)
+        return df
+
+    # Method to generate the N-lag Spearman cross-correlation, saving the
+    # correlation matrices as SVG files. "n" refers to the number of lags.
+    def n_lag_corr(self, df, filename, n=6):
+        lag_df = self.df_derived_by_shift(df, n)
+        corr_df = lag_df.corr(method='spearman')
+        # Plotting and saving SVG file.
+        plt.figure(figsize=(25,25))
+        title = str(n) + " months"
+        plt.title(title, y=1.05, size=16)
+        mask = np.zeros_like(corr_df)
+        mask[np.triu_indices_from(mask)] = True
+        svm = sns.heatmap(corr_df, mask=mask, linewidths=0.1,vmax=1.0, vmin=-1.0,
+                          square=True, cmap='coolwarm', linecolor='white', annot=True)
+        img_path = self.out_dir + filename
+        plt.savefig(img_path, bbox_inches='tight')
