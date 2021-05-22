@@ -19,6 +19,7 @@ from core import Sentiment
 from core import CriticalWords
 from core import SummarySentiments
 from core import SummarySyntactic
+from core import CorrCausAnalyzer
 
 
 def twitter_clean():
@@ -164,6 +165,54 @@ def syntactic_graphs():
                                     "outputs/clean datasets/News/News_syntactic_sentiment.csv",
                                     "outputs/Syntactic Analysis/images/")
 
+def corr_caus_analysis():
+    analyzer = CorrCausAnalyzer(in_path_tweets="outputs/clean datasets/Twitter/Twitter_syntactic_sentiment.csv",
+                                in_path_news="outputs/clean datasets/News/News_syntactic_sentiment.csv",
+                                out_path="outputs/Correlation/")
+    # First, we test for the Granger causality relation.
+    # Generating the required time series.
+    pos_df, neg_df, neu_df = analyzer.load_datasets()
+    # Checking stationarity for all datasets.
+    print("Stationarity tests:")
+    print("Positive: ")
+    pos_flag_news, pos_flag_tweets = analyzer.check_stationarity(pos_df)
+    print("Negative: ")
+    neg_flag_news, neg_flag_tweets = analyzer.check_stationarity(neg_df)
+    print("Neutral: ")
+    neu_flag_news, neu_flag_tweets = analyzer.check_stationarity(neu_df)
+
+    # For our case, the datasets are stationary, so we do not need to do any
+    # differencing. If you are working with a different dataset, you may
+    # need to differentiate one or more columns one or more times as follows:
+    # pos_df_trans = analyzer.diff_df(pos_df, col_name="pos_count_tweets")
+
+    # IMPORTANT:  The Granger causality test requires the time series to be
+    # stationary. As such, you will not be able to advance further until all
+    # the time series are stationary.
+
+    if(not(pos_flag_news & pos_flag_tweets & neg_flag_news & neg_flag_tweets & neu_flag_news & neu_flag_tweets)):
+        print("All time series must be stationary to continue!")
+    else:
+        # Finding best max lag value for each sentiment.
+        print("Finding best max lag values:")
+        print("Positive:")
+        pos_best_aic, pos_best_lag, pos_best_dw = analyzer.best_lag_dw(pos_df)
+        print("Negative:")
+        neg_best_aic, neg_best_lag, neg_best_dw = analyzer.best_lag_dw(neg_df)
+        print("Neutral:")
+        neu_best_aic, neu_best_lag, neu_best_dw = analyzer.best_lag_dw(neu_df)
+
+        # Performing the Granger causality tests per sentiment.
+        print("Positive:")
+        pos_granger = analyzer.grangers_causation_matrix(pos_df, variables = pos_df.columns,
+                                                         maxlag=pos_best_lag)
+        print("Negative:")
+        neg_granger = analyzer.grangers_causation_matrix(neg_df, variables = neg_df.columns,
+                                                         maxlag=neg_best_lag)
+        print("Neutral:")
+        neu_granger = analyzer.grangers_causation_matrix(neu_df, variables = neu_df.columns,
+                                                      maxlag=neu_best_lag)
+
 
 def main():
 
@@ -194,6 +243,8 @@ def main():
         # Plotting the graphs
         sentiments_graphs()
         syntactic_graphs()
+    elif(mode == "CC"):
+        corr_caus_analysis()
     elif(mode == "ALL"):
         # All options in order.
         news_clean()

@@ -6,3 +6,4 @@ from core.sentiment_analysis import Sentiment
 from core.sentiment_analysis import CriticalWords
 from core.graphics.summarize import SummarySentiments
 from core.graphics.summarize import SummarySyntactic
+from core.corr_caus import CorrCausAnalyzer
