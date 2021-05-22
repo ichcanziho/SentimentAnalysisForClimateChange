@@ -15,7 +15,6 @@ import pandasql as ps
 from pylab import rcParams
 import matplotlib.pyplot as plt
 from statsmodels.tsa.api import VAR
-from statsmodels.tsa.stattools import kpss
 from statsmodels.stats.stattools import durbin_watson
 from statsmodels.tsa.stattools import grangercausalitytests
 from statsmodels.tsa.stattools import adfuller, zivot_andrews
