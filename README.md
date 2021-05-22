@@ -36,7 +36,7 @@ We provide the raw datasets in the *inputs* directory and the pre-processed data
 We provide 5 options: dataset cleaning, sentiment analysis, syntactic analysis, plotting the results' timelines, and all operations. You can select the operation you with to carry on the *config.ini* file, changing the following line:
 
 ```ini
-; Mode options: CLEAN, SENT, SYNT, PLOTS, ALL.
+; Mode options: CLEAN, SENT, SYNT, PLOTS, CC, ALL.
 [MODE]
 mode = SENT ; change this line.
 ```
@@ -47,3 +47,5 @@ Once you have set the option you wish to carry out, you simply need to run the f
 ```ini
 $ python main.py
 ```
+
+**Note:** the *CC* option refers to "causality and cross-correlation". This method applies the Granger causality test and N-lag cross-correlation test on the sentiment timelines only. This option requires the *outputs/clean datasets/News_syntactic_sentiment.csv* and *outputs/clean datasets/Twitter_syntactic_sentiment.csv* files.
